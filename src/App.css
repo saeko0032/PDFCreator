@@ -1,0 +1,15 @@
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+input[type="file"] {
+  margin: 20px 0;
+}
+
+iframe {
+  border: none;
+  width: 100%;
+  height: 600px;
+}
