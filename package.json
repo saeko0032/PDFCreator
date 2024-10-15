@@ -1,0 +1,21 @@
+{
+  "name": "pdfcreator",
+  "version": "1.0.0",
+  "description": "A React application for creating PDFs from zipped HTML files",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "jszip": "^3.7.1",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
