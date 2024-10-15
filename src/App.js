@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import JSZip from 'jszip';
 import { PDFDocument } from 'pdf-lib';
+import { parse } from 'node-html-parser';
 
 const App = () => {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -12,9 +13,30 @@ const App = () => {
     const htmlFile = content.file(/.*\.html$/i)[0];
     const htmlContent = await htmlFile.async('string');
 
+    const root = parse(htmlContent);
+    const tableRows = root.querySelectorAll('.GroupBox tr');
+    const data = tableRows.slice(1).map(row => {
+      const cells = row.querySelectorAll('td');
+      return {
+        softwareProduct: cells[0].text,
+        productVersion: cells[1].text,
+        productDescription: cells[2].text,
+        partNumber: cells[3].text,
+        usageRights: cells[4].text,
+        duration: cells[5].text,
+        activationId: cells[6].text,
+      };
+    });
+
     const pdfDoc = await PDFDocument.create();
     const page = pdfDoc.addPage();
-    page.drawText(htmlContent);
+    data.forEach((item, index) => {
+      page.drawText(`Activation ID ${index + 1}: ${item.activationId}`, {
+        x: 50,
+        y: 750 - index * 20,
+        size: 12,
+      });
+    });
 
     const pdfBytes = await pdfDoc.save();
     const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
