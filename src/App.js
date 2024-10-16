@@ -29,11 +29,11 @@ const App = () => {
     });
 
     const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage();
     data.forEach((item, index) => {
+      const page = pdfDoc.addPage();
       page.drawText(`Activation ID ${index + 1}: ${item.activationId}`, {
         x: 50,
-        y: 750 - index * 20,
+        y: 750,
         size: 12,
       });
     });
